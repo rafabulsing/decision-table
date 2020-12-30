@@ -1,0 +1,10 @@
+{
+    "mocha.coverage": {
+        "enable": false,
+        "decoration": false,
+    },
+    "mocha.files.glob": "tests/**/*.tests.ts",
+    "mocha.requires": [
+        "ts-node/register"
+    ]
+}

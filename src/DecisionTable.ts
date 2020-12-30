@@ -1,0 +1,39 @@
+export class DecisionTable {
+    static testCell<T>(input: T, target: T|Any): boolean {
+        if (target === any) {
+            return true;
+        }
+        return input === target;
+    }
+    
+    static testRow<T extends readonly any[]>(input: T, target: T): boolean {
+        if (input.length != target.length) {
+            throw new Error('Input and target lengths must be the same.');
+        }
+        for (let i=0; i<input.length; ++i) {
+            if (!DecisionTable.testCell(input[i], target[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static testTable<T extends readonly any[]>(input: T, ...targets: T[]): number {
+        return targets.findIndex(target => DecisionTable.testRow(input, target));
+    }
+
+    static set<T extends readonly any[], U>(input: T, ...statements: [...T, U][]): U|undefined {
+        const targets = statements.map(statement => statement.slice(0, -1) as unknown as T);
+        
+        const matchingRowIndex = DecisionTable.testTable<T>(input, ...targets);
+
+        if (matchingRowIndex === -1) {
+            return undefined;
+        }
+
+        return statements[matchingRowIndex][statements[0].length-1];
+    }
+};
+
+interface Any {};
+export const any: Any = Symbol('Matches any value');
