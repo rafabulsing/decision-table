@@ -212,10 +212,6 @@ describe('DecisionTable', () => {
         });
 
         it('When there are no matching statements, should return undefined without calling any function', () => {
-            const correctValue = Symbol('Correct value');
-            const correctStub = sinon.stub<[], Symbol>().returns(correctValue);
-            const correctFunc = () => correctStub();
-
             const incorrectValue = Symbol('Incorrect value');
             const incorrectStub = sinon.stub<[], Symbol>().returns(incorrectValue);
             const incorrectFunc = () => incorrectStub();
@@ -224,13 +220,12 @@ describe('DecisionTable', () => {
             const statements = [
                 [ false, false, incorrectFunc ],
                 [ false, true,  incorrectFunc ],
-                [ true,  false, correctFunc   ],
+                [ true,  false, incorrectFunc ],
             ];
             
             const result = DecisionTable.do(input, ...statements);
 
             sinon.assert.callCount(incorrectStub, 0);
-            sinon.assert.callCount(correctStub, 0);
             assert.strictEqual(result, undefined);
         });
     });
