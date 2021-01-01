@@ -33,7 +33,18 @@ export class DecisionTable {
 
         return statements[matchingRowIndex][statements[0].length-1];
     }
+
+    static do<T extends readonly any[], U>(input: T, ...statements: [...T, () => U][]): U|undefined {
+        const result = DecisionTable.set(input, ...statements);
+
+        if (result === undefined) {
+            return undefined
+        }
+
+        return result();
+    };
 };
 
 interface Any {};
 export const any: Any = Symbol('Matches any value');
+export const _ = any;

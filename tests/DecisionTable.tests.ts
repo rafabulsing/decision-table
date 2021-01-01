@@ -1,9 +1,14 @@
 import { assert } from 'chai';
 import 'mocha';
+import sinon from 'sinon';
 
 import { DecisionTable, any } from '../src/DecisionTable';
 
 describe('DecisionTable', () => {
+    afterEach(() => {
+        sinon.restore();
+    });
+
     describe('testCell', () => {
         it('When input is equal to target, should return true', () => {
             const testCases = [
@@ -145,6 +150,88 @@ describe('DecisionTable', () => {
             const result = DecisionTable.testTable(input, ...targets);
 
             assert.strictEqual(result, -1);
+        });
+    });
+
+    describe('set', () => {
+        it('When there is one matching statement, should return its consequence', () => {
+            const incorrect = Symbol();
+            const correct = Symbol();
+            
+            const input: [boolean, boolean] = [true, false];
+            const statements: [boolean, boolean, Symbol][] = [
+                [ false, false, incorrect ],
+                [ false, true,  incorrect ],
+                [ true,  false, correct   ],
+                [ true,  true,  incorrect ],
+            ];
+            
+            const result = DecisionTable.set(input, ...statements);
+
+            assert.strictEqual(result, correct);
+        });
+
+        it('When there are no matching statements, should return undefined', () => {
+            const incorrect = Symbol();
+
+            const input = [true, false];
+            const statements = [
+                [ false, false, incorrect ],
+                [ true,  true,  incorrect ],
+            ];
+            
+            const result = DecisionTable.set(input, ...statements);
+
+            assert.strictEqual(result, undefined);
+        });
+    });
+
+    describe('do', () => {
+        it('When there is one matching statement, should run its consequence function and return its result', () => {
+            const correctValue = Symbol('Correct value');
+            const correctStub = sinon.stub<[], Symbol>().returns(correctValue);
+            const correctFunc = () => correctStub();
+
+            const incorrectValue = Symbol('Incorrect value');
+            const incorrectStub = sinon.stub<[], Symbol>().returns(incorrectValue);
+            const incorrectFunc = () => incorrectStub();
+            
+            const input = [true, false];
+            const statements = [
+                [ false, false, incorrectFunc ],
+                [ false, true,  incorrectFunc ],
+                [ true,  false, correctFunc   ],
+                [ true,  true,  incorrectFunc ],
+            ];
+            
+            const result = DecisionTable.do(input, ...statements);
+            
+            sinon.assert.callCount(incorrectStub, 0);
+            sinon.assert.callCount(correctStub, 1);
+            assert.strictEqual(result, correctValue);
+        });
+
+        it('When there are no matching statements, should return undefined without calling any function', () => {
+            const correctValue = Symbol('Correct value');
+            const correctStub = sinon.stub<[], Symbol>().returns(correctValue);
+            const correctFunc = () => correctStub();
+
+            const incorrectValue = Symbol('Incorrect value');
+            const incorrectStub = sinon.stub<[], Symbol>().returns(incorrectValue);
+            const incorrectFunc = () => incorrectStub();
+            
+            const input = [true, true];
+            const statements = [
+                [ false, false, incorrectFunc ],
+                [ false, true,  incorrectFunc ],
+                [ true,  false, correctFunc   ],
+            ];
+            
+            const result = DecisionTable.do(input, ...statements);
+
+            sinon.assert.callCount(incorrectStub, 0);
+            sinon.assert.callCount(correctStub, 0);
+            assert.strictEqual(result, undefined);
         });
     });
 });
