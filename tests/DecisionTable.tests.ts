@@ -159,7 +159,7 @@ describe('DecisionTable', () => {
             const correct = Symbol();
             
             const input: [boolean, boolean] = [true, false];
-            const statements: [boolean, boolean, Symbol][] = [
+            const statements: [boolean, boolean, symbol][] = [
                 [ false, false, incorrect ],
                 [ false, true,  incorrect ],
                 [ true,  false, correct   ],
@@ -189,11 +189,11 @@ describe('DecisionTable', () => {
     describe('do', () => {
         it('When there is one matching statement, should run its consequence function and return its result', () => {
             const correctValue = Symbol('Correct value');
-            const correctStub = sinon.stub<[], Symbol>().returns(correctValue);
+            const correctStub = sinon.stub<[], symbol>().returns(correctValue);
             const correctFunc = () => correctStub();
 
             const incorrectValue = Symbol('Incorrect value');
-            const incorrectStub = sinon.stub<[], Symbol>().returns(incorrectValue);
+            const incorrectStub = sinon.stub<[], symbol>().returns(incorrectValue);
             const incorrectFunc = () => incorrectStub();
             
             const input = [true, false];
@@ -213,7 +213,7 @@ describe('DecisionTable', () => {
 
         it('When there are no matching statements, should return undefined without calling any function', () => {
             const incorrectValue = Symbol('Incorrect value');
-            const incorrectStub = sinon.stub<[], Symbol>().returns(incorrectValue);
+            const incorrectStub = sinon.stub<[], symbol>().returns(incorrectValue);
             const incorrectFunc = () => incorrectStub();
             
             const input = [true, true];

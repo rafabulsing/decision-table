@@ -1,7 +1,5 @@
 import { DecisionTable, any } from './src/DecisionTable';
 
-const n = 9;
-
 const isDivisibleN = (n: number, d: number): boolean => {
     return n % d === 0
 };

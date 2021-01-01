@@ -6,7 +6,7 @@ export class DecisionTable {
         return input === target;
     }
     
-    static testRow<T extends readonly any[]>(input: T, target: T): boolean {
+    static testRow<T extends readonly unknown[]>(input: T, target: T): boolean {
         if (input.length != target.length) {
             throw new Error('Input and target lengths must be the same.');
         }
@@ -18,11 +18,11 @@ export class DecisionTable {
         return true;
     }
 
-    static testTable<T extends readonly any[]>(input: T, ...targets: T[]): number {
+    static testTable<T extends readonly unknown[]>(input: T, ...targets: T[]): number {
         return targets.findIndex(target => DecisionTable.testRow(input, target));
     }
 
-    static set<T extends readonly any[], U>(input: T, ...statements: [...T, U][]): U|undefined {
+    static set<T extends readonly unknown[], U>(input: T, ...statements: [...T, U][]): U|undefined {
         const targets = statements.map(statement => statement.slice(0, -1) as unknown as T);
         
         const matchingRowIndex = DecisionTable.testTable<T>(input, ...targets);
@@ -31,10 +31,10 @@ export class DecisionTable {
             return undefined;
         }
 
-        return statements[matchingRowIndex][statements[0].length-1];
+        return statements[matchingRowIndex].pop() as U;
     }
 
-    static do<T extends readonly any[], U>(input: T, ...statements: [...T, () => U][]): U|undefined {
+    static do<T extends readonly unknown[], U>(input: T, ...statements: [...T, () => U][]): U|undefined {
         const result = DecisionTable.set(input, ...statements);
 
         if (result === undefined) {
@@ -42,9 +42,9 @@ export class DecisionTable {
         }
 
         return result();
-    };
-};
+    }
+}
 
-interface Any {};
-export const any: Any = Symbol('Matches any value');
-export const _ = any;
+class Any {}
+export const any = new Any();
+export const _ = new Any();
