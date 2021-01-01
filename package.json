@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -r ts-node/register tests/**/*.tests.ts"
+    "test": "mocha -r ts-node/register tests/**/*.tests.ts",
+    "coverage": "nyc npm test"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "sinon": "^9.2.2",
+    "source-map-support": "^0.5.19",
     "ts-lint": "^4.5.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
