@@ -1,5 +1,5 @@
 export class DecisionTable {
-    static testCell<T>(input: T, target: T|Any): boolean {
+    static testCell<T>(input: T, target: T|DecisionTableAny): boolean {
         if (target === any) {
             return true;
         }
@@ -45,6 +45,6 @@ export class DecisionTable {
     }
 }
 
-class Any {}
-export const any = new Any();
-export const _ = new Any();
+class DecisionTableAny {}
+export const any = new DecisionTableAny();
+export const _ = new DecisionTableAny();
