@@ -151,6 +151,15 @@ describe('DecisionTable', () => {
 
             assert.strictEqual(result, -1);
         });
+
+        it('When empty array of rows is provided, should return -1', () => {
+            const input = [true, false];
+            const targets: [] = [];
+            
+            const result = DecisionTable.testTable(input, ...targets);
+
+            assert.strictEqual(result, -1);
+        });
     });
 
     describe('set', () => {
@@ -179,6 +188,17 @@ describe('DecisionTable', () => {
                 [ false, false, incorrect ],
                 [ true,  true,  incorrect ],
             ];
+            
+            const result = DecisionTable.set(input, ...statements);
+
+            assert.strictEqual(result, undefined);
+        });
+
+        it('When empty array of statements is provided, should return undefined', () => {
+            const incorrect = Symbol();
+
+            const input = [true, false];
+            const statements: [] = [];
             
             const result = DecisionTable.set(input, ...statements);
 
