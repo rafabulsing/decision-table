@@ -1,15 +1,16 @@
 {
   "name": "decision-table",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "Provides a simple way to implement decision tables",
+  "main": "build/DecisionTable.js",
+  "types": "build/DecisionTable.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "mocha -r ts-node/register tests/**/*.tests.ts",
     "coverage": "nyc npm test"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["decision-table", "decision", "table"],
+  "author": "@rafabulsing",
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.14",
