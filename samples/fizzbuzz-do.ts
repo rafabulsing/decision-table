@@ -9,7 +9,7 @@ for (let i=1; i<=100; ++i) {
         [isDivisible5(i), isDivisible3(i),                  ],
         [false,           false,           print(`${ i }`)  ],
         [false,           true,            print('fizz')    ],
-        [true,            false,           print(`buzz`)    ],
+        [true,            false,           print('buzz')    ],
         [true,            true,            print('fizzbuzz')],
     );
 }
