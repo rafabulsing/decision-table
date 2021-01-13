@@ -4,6 +4,10 @@
   "description": "Provides a simple way to implement decision tables",
   "main": "build/DecisionTable.js",
   "types": "build/DecisionTable.d.ts",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/rafabulsing/decision-table"
+  },
   "scripts": {
     "build": "tsc",
     "test": "mocha -r ts-node/register tests/**/*.tests.ts",
