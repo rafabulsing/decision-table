@@ -1,3 +1,5 @@
+import { last } from "./utils";
+
 export class DecisionTable {
     static testCell<T>(input: T, target: T|DecisionTableAny): boolean {
         if (target === any) {
@@ -31,7 +33,7 @@ export class DecisionTable {
             return undefined;
         }
 
-        return statements[matchingRowIndex].pop() as U;
+        return last(statements[matchingRowIndex]) as U;
     }
 
     static do<T extends readonly unknown[], U>(input: T, ...statements: [...T, () => U][]): U|undefined {
