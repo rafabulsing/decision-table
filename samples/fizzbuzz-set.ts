@@ -1,4 +1,4 @@
-import { DecisionTable, any } from '../src/DecisionTable';
+import { DecisionTable } from '../src/DecisionTable';
 
 const isDivisible3 = (n: number): boolean => n % 3 === 0;
 const isDivisible5 = (n: number): boolean => n % 5 === 0; 

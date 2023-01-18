@@ -183,8 +183,8 @@ describe('DecisionTable', () => {
         it('When there are no matching statements, should return undefined', () => {
             const incorrect = Symbol();
 
-            const input = [true, false];
-            const statements = [
+            const input: [boolean, boolean] = [true, false];
+            const statements: [...typeof input, symbol][] = [
                 [ false, false, incorrect ],
                 [ true,  true,  incorrect ],
             ];
@@ -195,8 +195,6 @@ describe('DecisionTable', () => {
         });
 
         it('When empty array of statements is provided, should return undefined', () => {
-            const incorrect = Symbol();
-
             const input = [true, false];
             const statements: [] = [];
             
@@ -216,8 +214,8 @@ describe('DecisionTable', () => {
             const incorrectStub = sinon.stub<[], symbol>().returns(incorrectValue);
             const incorrectFunc = () => incorrectStub();
             
-            const input = [true, false];
-            const statements = [
+            const input: [boolean, boolean] = [true, false];
+            const statements: [...typeof input, () => symbol][] = [
                 [ false, false, incorrectFunc ],
                 [ false, true,  incorrectFunc ],
                 [ true,  false, correctFunc   ],
@@ -236,8 +234,8 @@ describe('DecisionTable', () => {
             const incorrectStub = sinon.stub<[], symbol>().returns(incorrectValue);
             const incorrectFunc = () => incorrectStub();
             
-            const input = [true, true];
-            const statements = [
+            const input: [boolean, boolean] = [true, true];
+            const statements: [...typeof input, () => symbol][] = [
                 [ false, false, incorrectFunc ],
                 [ false, true,  incorrectFunc ],
                 [ true,  false, incorrectFunc ],
