@@ -1,3 +1,3 @@
-export function last<T>(arr: T[]): T {
+export function last<T extends unknown>(arr: T[]): T {
   return arr[arr.length - 1];
 }

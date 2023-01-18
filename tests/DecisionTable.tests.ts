@@ -248,4 +248,3 @@ describe('DecisionTable', () => {
         });
     });
 });
-
